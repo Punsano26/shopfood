@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Mar 21, 2023 at 05:22 AM
--- Server version: 8.0.17
--- PHP Version: 7.3.10
+-- Host: 127.0.0.1
+-- Generation Time: Mar 22, 2023 at 10:42 AM
+-- Server version: 10.4.25-MariaDB
+-- PHP Version: 8.0.23
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -33,7 +32,7 @@ CREATE TABLE `food_menu` (
   `foodmenuName` varchar(16) NOT NULL,
   `price` float NOT NULL,
   `foodtypeID` char(6) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `food_menu`
@@ -43,9 +42,10 @@ INSERT INTO `food_menu` (`foodmenuID`, `foodmenuName`, `price`, `foodtypeID`) VA
 ('f01', 'เตี๋ยวแห้ง', 45, '01'),
 ('f02', 'เตี๋ยวต้มส้ม', 45, '01'),
 ('f03', 'ผัดซีอิ๊วหมู', 50, '01'),
-('f04', 'ตำซั่ว', 45, '01'),
+('f04', 'ลาบเป็ด', 50, '01'),
 ('f05', 'มะนาวโซดา', 40, '02'),
-('f06', 'นมชมพู', 40, '02');
+('f06', 'ชาไม่หลง', 60, '02'),
+('f07', 'หนังลิงทอดกรอบ', 20, '01');
 
 -- --------------------------------------------------------
 
@@ -56,7 +56,7 @@ INSERT INTO `food_menu` (`foodmenuID`, `foodmenuName`, `price`, `foodtypeID`) VA
 CREATE TABLE `food_type` (
   `foodtypeID` char(6) NOT NULL,
   `foodtypeName` varchar(15) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `food_type`
@@ -91,7 +91,7 @@ ALTER TABLE `food_type`
 -- Constraints for table `food_menu`
 --
 ALTER TABLE `food_menu`
-  ADD CONSTRAINT `FK_type` FOREIGN KEY (`foodtypeID`) REFERENCES `food_type` (`foodtypeID`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `FK_type` FOREIGN KEY (`foodtypeID`) REFERENCES `food_type` (`foodtypeID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

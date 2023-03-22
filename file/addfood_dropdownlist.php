@@ -26,7 +26,7 @@
             echo '<br>' . $_POST['foodmenuID'];
             //require 'connect.php';
     
-            $sql = "INSERT INTO food_menu VALUES (:foodmenuID,:foodmenuName,:price,:foodtypeID,)";
+            $sql = "INSERT INTO food_menu VALUES (:foodmenuID,:foodmenuName,:price,:foodtypeID)";
 
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':foodmenuID', $_POST['foodmenuID']);
@@ -38,10 +38,10 @@
 
             try {
                 if ($stmt->execute()):
-                    $message = 'Successfully add new customer';
+                    $message = 'Successfully add new ลิสต์อาหารหรือเครื่องดื่ม';
                     // echo $stmt;
                 else:
-                    $message = 'Fail to add new customer';
+                    $message = 'Fail to add new ลิสต์อาหารหรือเครื่องดื่ม';
                 endif;
                 echo $message;
             } catch (PDOException $e) {
@@ -67,11 +67,11 @@
                     <br> <br>
                     <input type="text" placeholder="foodname" name="foodmenuName">
                     <br> <br>
-                    <input type="int" placeholder="price" name="price">
+                    <input type="number" placeholder="price" name="price">
                     <br> <br>
                     
                     <label>Selcet a food type code </label>
-                    <select name="food_type">
+                    <select name="foodtypeID">
                         <?php while ($cc = $stmt_s->fetch(PDO::FETCH_ASSOC)) { ?>
                             <option value="<?php echo $cc['foodtypeID']; ?>">
                                 <?php echo $cc['foodtypeName']; ?>
