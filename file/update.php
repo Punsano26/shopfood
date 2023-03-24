@@ -6,17 +6,20 @@ if (isset($_POST['foodmenuID'])) {
     $foodmenuID = $_POST['foodmenuID'];
     $foodmenuName = $_POST['foodmenuName'];
     $price = $_POST['price'];
+    $img = $_POST['Image'];
 
     echo 'foodmenuID = ' . $foodmenuID;
     echo 'foodmenuName = ' . $foodmenuName;
     echo 'price = ' . $price; 
+    echo 'Image = ' . $img;
 
     
     $stmt = $conn->prepare(
-        'UPDATE  food_menu SET foodmenuName = :foodmenuName, price = :price WHERE foodmenuID=:foodmenuID'
+        'UPDATE  food_menu SET foodmenuName = :foodmenuName, price = :price, Image = :Image WHERE foodmenuID=:foodmenuID'
     );
     $stmt->bindparam(':foodmenuName',$_POST['foodmenuName']);
     $stmt->bindparam(':price',$_POST['price']);
+    $stmt->bindparam(':Image',$_POST['Image']);
     $stmt->bindparam(':foodmenuID', $_POST['foodmenuID']);
     $stmt->execute();
 
