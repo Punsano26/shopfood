@@ -8,6 +8,17 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <title>Addfood now</title>
+    <style type="text/css">
+        img {
+            transition: transform 0.25s ease;
+        }
+
+        img:hover {
+            -webkit-transform: scale(1.5);
+            /* or some other value */
+            transform: scale(1.5);
+        }
+    </style>
 </head>
 
 <body>
@@ -24,17 +35,28 @@
 
         if (!empty($_POST['foodmenuID']) && !empty($_POST['foodmenuName'])) {
             echo '<br>' . $_POST['foodmenuID'];
-            //require 'connect.php';
+            //require 'connect.php'
+
+            $uploadFile = $_FILES['image']['name'];
+            $tmpFile = $_FILES['image']['tmp_name'];
+            echo " upload file = " . $uploadFile;
+            echo " tmp file = " . $tmpFile;
     
-            $sql = "INSERT INTO food_menu VALUES (:foodmenuID,:foodmenuName,:price,:foodtypeID)";
+            $sql = "INSERT INTO food_menu 
+            VALUES (:foodmenuID,:foodmenuName,:price,:foodtypeID,:image)";
 
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':foodmenuID', $_POST['foodmenuID']);
             $stmt->bindParam(':foodmenuName', $_POST['foodmenuName']);
             $stmt->bindParam(':price', $_POST['price']);
             $stmt->bindParam(':foodtypeID', $_POST['foodtypeID']);
+            $stmt->bindparam(':image', $uploadFile);
             
+            echo "image =" .$uploadFile;
 
+            $fullpath = "../image/" . $uploadFile;
+            echo " fullpath = " . $fullpath;
+            move_uploaded_file($tmpFile, $fullpath);
 
             try {
                 if ($stmt->execute()):
@@ -61,11 +83,11 @@
         <div class="row">
             <div class="col-md-4"> <br>
                 <h3>ฟอร์มเพิ่มข้อมูลรายการอาหาร</h3>
-                <form action="addfood_dropdownlist.php" method="POST">
+                <form action="addfood_dropdownlist.php" method="POST" enctype="multipart/form-data">
 
-                    <input type="text" placeholder="Enter food_MENU ID" name="foodmenuID">
+                    <input type="text" placeholder="Enter food_MENU ID" name="foodmenuID" require>
                     <br> <br>
-                    <input type="text" placeholder="foodname" name="foodmenuName">
+                    <input type="text" placeholder="foodname" name="foodmenuName" require>
                     <br> <br>
                     <input type="number" placeholder="price" name="price">
                     <br> <br>
@@ -79,6 +101,10 @@
                         <?php } ?>
                     </select>
                     <br> <br>
+
+                    แนบรูป:
+                    <input type="file" name=image required>
+                    <br><br>
 
                     <input type="submit" value="Submit" name="submit" />
                 </form>

@@ -35,16 +35,20 @@
       <div class="col-md-4"> <br>
         <h3>ฟอร์มแก้ไข ลิสต์อาหารหรือเครื่องดื่ม</h3>
         <form action="update.php" method="POST">
-          <input type="hidden" name="foodmenuID" value="<?= $_GET['foodmenuID'] ?>">
+          <input type="hidden" name="foodmenuID" value="<?= $result['foodmenuID'] ?>">
 
           <label for="name" class="col-sm-2 col-form-label"> ชื่อเมนูที่จะแก้ไข: </label>
 
-          <input type="text" name="foodmenuName" class="form-control" required value="">
+          <input type="text" name="foodmenuName" class="form-control" required value="<?= $result['foodmenuName'] ?>">
 
 
           <label for="name" class="col-sm-2 col-form-label"> ราคา: </label>
 
-          <input type="number" name="price" class="form-control" required value="">
+          <input type="number" name="price" class="form-control" required value="<?= $result['price'] ?>">
+
+          <label for="name" class="col-sm-2 col-form-label"> ราคา: </label>
+
+          <input type="file" name="Image" class="form-control" required value="">
 
           <br> <button type="submit" class="btn btn-primary">แก้ไขข้อมูล</button>
         </form>
