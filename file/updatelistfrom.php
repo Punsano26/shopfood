@@ -34,7 +34,7 @@
     <div class="row">
       <div class="col-md-4"> <br>
         <h3>ฟอร์มแก้ไข ลิสต์อาหารหรือเครื่องดื่ม</h3>
-        <form action="update.php" method="POST">
+        <form action="update.php" method="POST" enctype="multipart/form-data">
           <input type="hidden" name="foodmenuID" value="<?= $result['foodmenuID'] ?>">
 
           <label for="name" class="col-sm-2 col-form-label"> ชื่อเมนูที่จะแก้ไข: </label>

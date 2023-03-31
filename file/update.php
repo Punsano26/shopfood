@@ -6,22 +6,31 @@ if (isset($_POST['foodmenuID'])) {
     $foodmenuID = $_POST['foodmenuID'];
     $foodmenuName = $_POST['foodmenuName'];
     $price = $_POST['price'];
-    $img = $_POST['Image'];
+    // $img = $_POST['Image'];
+
+    $uploadFile = $_FILES['Image']['name'];
+            $tmpFile = $_FILES['Image']['tmp_name'];
+            echo " upload file = " . $uploadFile;
+            echo " tmp file = " . $tmpFile;
 
     echo 'foodmenuID = ' . $foodmenuID;
     echo 'foodmenuName = ' . $foodmenuName;
     echo 'price = ' . $price; 
-    echo 'Image = ' . $img;
-
+    
     
     $stmt = $conn->prepare(
         'UPDATE  food_menu SET foodmenuName = :foodmenuName, price = :price, Image = :Image WHERE foodmenuID=:foodmenuID'
     );
     $stmt->bindparam(':foodmenuName',$_POST['foodmenuName']);
     $stmt->bindparam(':price',$_POST['price']);
-    $stmt->bindparam(':Image',$_POST['Image']);
+    $stmt->bindparam(':Image',$uploadFile);
     $stmt->bindparam(':foodmenuID', $_POST['foodmenuID']);
     $stmt->execute();
+
+     $fullpath = "../image/" . $uploadFile;
+            echo " fullpath = " . $fullpath;
+            move_uploaded_file($tmpFile, $fullpath);
+
 
     echo '
     <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
